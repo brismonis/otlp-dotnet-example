@@ -12,6 +12,8 @@ builder.Services.AddOpenTelemetry().WithMetrics(builder =>
     });
 });
 
+Environment.SetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT", "http://collector:4317");
+
 var app = builder.Build();
 
 

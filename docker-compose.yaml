@@ -4,8 +4,6 @@ services:
   app:
     build:
       context: ./app
-    environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4317
     ports:
       - "5001:80"
     depends_on:
