@@ -9,6 +9,8 @@ builder.Services.AddOpenTelemetry().WithMetrics(builder =>
     builder.AddOtlpExporter((exporterOptions, metricReaderOptions) =>
     {
         metricReaderOptions.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds = 2000;
+        // also not working:
+        //exporterOptions.Endpoint = new Uri("http://collector:4317"); 
     });
 });
 
