@@ -1,26 +1,17 @@
 using System.Diagnostics.Metrics;
-using OpenTelemetry.Metrics;
+using monitor;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenTelemetry().WithMetrics(builder =>
-{
-    builder.AddMeter("MyMeter");
-    builder.AddOtlpExporter((exporterOptions, metricReaderOptions) =>
-    {
-        metricReaderOptions.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds = 2000;
-    });
-});
-
-var app = builder.Build();
-
+builder.Services.ConfigureServices();
 
 var meter = new Meter("MyMeter");
 var counter = meter.CreateCounter<int>("MyCounter");
 
+var app = builder.Build();
 app.MapGet("/", () =>
 {
-    counter.Add(1);
+    counter.Add(10);
     return "Hello World!";
 });
 
